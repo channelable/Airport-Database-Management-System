@@ -1,0 +1,162 @@
+import mysql.connector as abc
+mydb= abc.connect(host= 'localhost', user= 'root', passwd= 'root', database= 'Airports')
+mycursor= mydb.cursor()
+print('1. Entering data')
+print('2. Update data')
+print('3. Delete data')
+print('4. View data')
+n= int(input('Enter your choice:'))
+################################################
+if n==1:
+    x= 'y'
+    while x=='y':
+       a=input("Enter Sno")
+       b=input("Enter Departure time")
+       c=input("Enter Destination")
+       d=int(input("Enter Flight number"))
+       e=int(input("Enter Gate number"))
+       f=input("Enter flight status")
+
+       sql1= "insert into Flights (Sno, Departure_time, Destination, Flight_no, Gate_no, Status) values(%s, %s, %s, %s, %s,%s)"
+       vals1= (a, b, c, d, e, f)
+       mycursor.execute(sql1, vals1)
+       mydb.commit()
+       a= input('Enter another record(y/n):')
+       if a=='n':
+           break
+    print('Sucessfully inserted')
+################################################
+elif n==2:
+    z=int(input('Enter number of modifications:'))
+    for i in range(z):
+        print('1. Time of Departure')
+        print('2. Destination')
+        print('3. Flight No')
+        print('4. Gate no')
+        print('5. Flight status')
+
+        m=int(input('Enter column to edit(1/2/3/4/5):'))
+
+        if m==1:
+w= int(input('Enter Sno of the record:'))
+            e= input('Enter value:')
+            sql2= "update Flights set Departure_time= %s where sno= %s"
+            vals2= (e,w)
+            mycursor.execute(sql2, vals2)
+            mydb.commit()
+
+        elif m==2:
+            w= int(input('Enter Sno of the record:'))
+            e= input('Enter value:')
+            sql2= "update Flights set Destination= %s where sno= %s"
+            vals2= (e,w)
+            mycursor.execute(sql2, vals2)
+            mydb.commit()
+
+        elif m==3:
+            w= int(input('Enter Sno of the record:'))
+            e= input('Enter value:')
+            sql2= "update Flights set Flight_no= %s where sno= %s"
+            vals2= (e,w)
+            mycursor.execute(sql2, vals2)
+            mydb.commit()
+
+        elif m==4:
+            w= int(input('Enter Sno of the record:'))
+ e= input('Enter value:')
+            sql2= "update Flights set Gate_no= %s where sno= %s"
+            vals2= (e,w)
+            mycursor.execute(sql2, vals2)
+            mydb.commit()
+
+        elif m==5:
+            w= int(input('Enter Sno of the record:'))
+            e= input('Enter value:')
+            sql2= "update Flights set Status= %s where sno= %s"
+            vals2= (e,w)
+            mycursor.execute(sql2, vals2)
+            mydb.commit()
+
+        else:
+            print('Enter valid record')
+
+        print('Sucessfully Updated')
+################################################
+elif n==3:
+    t=int(input('Enter Sno to delete:'))
+    sql3= "delete from Flights where sno=%s"
+    vals3=[t]
+    mycursor.execute(sql3, vals3)
+    mydb.commit()
+ print("Successfully Deleted")    
+################################################
+elif n==4:
+    print('1. Display all data')
+    print('2. Search Data')
+    m= int(input('Enter response 1 or 2:'))
+    if m==1:
+        sql4= "Select * from Flights"
+        mycursor.execute(sql4)
+        r= mycursor.fetchall()
+        for i in r:
+            print(i)
+    elif m==2:
+        print('1. Sno')
+        print('2. Departure time')
+        print('3. Destination')
+        print('4. Flight No')
+        print('5. Gate No')
+        print('6. Flight Status')
+        a= int(input('Enter choice:'))
+        if a==1:
+            y= int(input('Enter Sno'))
+            sql5= "Select * from Flights where sno= %s"%y
+            mycursor.execute(sql5)
+            r= mycursor.fetchall()
+for i in r:
+                print(i)
+
+        elif a==2:
+            y= int(input('Enter Departure Time'))
+            sql5="Select * from Flights where Departure_time= '%s'"%y
+            mycursor.execute(sql5)
+            r= mycursor.fetchall()
+            for i in r:
+                print(i)
+
+        elif a==3:
+            y= int(input('Enter Destination'))
+            sql5="Select * from Flights where Destination= '%s'"%y
+            mycursor.execute(sql5)
+            r= mycursor.fetchall()
+            for i in r:
+                print(i)
+
+        elif a==4:
+             y= int(input('Enter Flight_no'))
+             sql5="Select * from Flights where Flight_no= '%s'"%y
+             mycursor.execute(sql5)
+             r= mycursor.fetchall()
+             for i in r:
+  print(i)
+
+        elif a==5:
+            y= int(input('Enter Gate_no'))
+            sql5="Select * from Flights where Gate_no= '%s'"%y
+            mycursor.execute(sql5)
+            r= mycursor.fetchall()
+            for i in r:
+                print(i)
+
+        elif a==6:
+            y= int(input('Enter Flight Status'))
+            sql5="Select * from Flights where Status= '%s'"%y
+            mycursor.execute(sql5)
+            r= mycursor.fetchall()
+            for i in r:
+                print(i)
+
+        else:
+            print('Enter valid Number')
+################################################################################################
+
